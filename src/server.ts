@@ -9,7 +9,7 @@ const BOT = process.env.BOT;
 let timeoutId: NodeJS.Timeout;
 
 function pingBot() {
-    if (!BOT) return console.log("Pinged Bot"); // Prevent overlap if already pinging
+    if (!BOT) return; // Prevent overlap if already pinging
 
     const attemptPing = () => {
         fetch(BOT)
