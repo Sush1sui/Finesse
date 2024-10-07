@@ -15,6 +15,7 @@ import {
     setVerificationStatus,
 } from "../../modules/verificationModule";
 import { verifiedRoleId } from "../../modules/verificationModule";
+import { sendWelcomeAfterVerification } from "../../Utils.function";
 
 export default {
     data: new SlashCommandBuilder()
@@ -113,30 +114,7 @@ export default {
                             ephemeral: true,
                         });
 
-                        const generalChannel =
-                            buttonInteraction.guild.channels.cache.get(
-                                "1292411347220435006"
-                            ) as TextChannel;
-
-                        if (generalChannel) {
-                            const embed = new EmbedBuilder()
-                                .setDescription(
-                                    `**Read** ➣ <#1292414576541040671>\n
-                                **Get**  ➣ gib channel\n
-                                **Vibe** ➣ <#1290538849570787404>\n
-                                `
-                                )
-                                .setFooter({ text: "Gib footer message" })
-                                .setColor("Orange");
-
-                            await generalChannel.send({
-                                content: `Welcome ${member.user}!`,
-                                allowedMentions: { parse: ["users"] },
-                                embeds: [embed],
-                            });
-                        } else {
-                            console.error("General channel not found.");
-                        }
+                        sendWelcomeAfterVerification(buttonInteraction, member);
                     } else {
                         await buttonInteraction.reply({
                             content: "The specified role was not found.",
