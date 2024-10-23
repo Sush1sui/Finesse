@@ -1,14 +1,21 @@
 import StickyChannel from "../models/StickyChannel.model";
-import GlobalVariables from "../models/GlobalVariables.model";
+import StickyMessage from "../models/StickyMessage.model";
 
 export let stickyMessageString: string = "";
 
-export async function setStickyMessageString() {
+export async function setStickyMessageString(val: string) {
     try {
-        const gv = await GlobalVariables.findOne();
-        if (!gv) throw new Error("Nothing fetched");
+        const sm_arr = await StickyMessage.find();
+        if (sm_arr.length > 0)
+            throw new Error(
+                "There is already an existing custom sticky message"
+            );
 
-        stickyMessageString = gv.stickyMessage || "";
+        const newSM = await StickyMessage.create({
+            stickyMessage: val,
+        });
+
+        stickyMessageString = newSM.stickyMessage || "";
         return stickyMessageString;
     } catch (error) {
         console.log(error);
@@ -18,13 +25,9 @@ export async function setStickyMessageString() {
 
 export async function deleteStickyMessageString() {
     try {
-        const gv = await GlobalVariables.findOne();
-        if (!gv) throw new Error("Nothing fetched");
+        await StickyMessage.deleteMany();
 
-        gv.stickyMessage = null;
-        gv.save();
-
-        stickyMessageString = gv.stickyMessage || "";
+        stickyMessageString = "";
         return stickyMessageString;
     } catch (error) {
         console.log(error);
@@ -34,21 +37,22 @@ export async function deleteStickyMessageString() {
 
 export async function editStickyMessageString(val: string) {
     try {
-        const gv = await GlobalVariables.findOne();
-        if (!gv) throw new Error("Nothing fetched");
+        const updatedStickyMessage = await StickyMessage.findOneAndUpdate(
+            {},
+            { stickyMessage: val },
+            { new: true }
+        );
 
-        gv.stickyMessage = val;
-        gv.save();
+        if (!updatedStickyMessage)
+            throw new Error("Nothing fetched or updated");
 
-        stickyMessageString = gv.stickyMessage || "";
+        stickyMessageString = updatedStickyMessage.stickyMessage || "";
         return stickyMessageString;
     } catch (error) {
         console.log(error);
         return null;
     }
 }
-
-export async function getStickyMessageString() {}
 
 export async function initializeStickyMessages() {
     try {

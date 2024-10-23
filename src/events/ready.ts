@@ -1,6 +1,7 @@
 import { Client, Events } from "discord.js";
 import deployCommands from "../deploy-commands";
 import { initializeVerificationCollector } from "../modules/verificationModule";
+import { initializeStickyMessages } from "../modules/stickyMessageModule";
 
 // event handler for making bot online
 export default {
@@ -16,5 +17,6 @@ export default {
         console.log(`Logged in as ${client.user.tag}`);
 
         await initializeVerificationCollector(client);
+        await initializeStickyMessages();
     },
 };
