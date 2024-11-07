@@ -59,7 +59,7 @@ export default {
                     const customNotEmpty = stickyMessageString.length !== 0;
 
                     const embed = new EmbedBuilder()
-                        .setTitle("Stickied Message:")
+                        .setTitle("Stickied Message")
                         .setDescription(
                             customNotEmpty
                                 ? stickyMessageString

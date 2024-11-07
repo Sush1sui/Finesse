@@ -1,6 +1,7 @@
 import {
     ChatInputCommandInteraction,
     EmbedBuilder,
+    PermissionFlagsBits,
     SlashCommandBuilder,
     TextChannel,
 } from "discord.js";
@@ -9,7 +10,8 @@ import { getAllStickyMessageChannelID } from "../../modules/stickyMessageModule"
 export default {
     data: new SlashCommandBuilder()
         .setName("show_all_sticky_channels")
-        .setDescription("Shows all channels that has sticky message active"),
+        .setDescription("Shows all channels that has sticky message active")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction: ChatInputCommandInteraction): Promise<void> {
         const member = interaction.member;

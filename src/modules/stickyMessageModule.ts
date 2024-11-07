@@ -43,8 +43,7 @@ export async function editStickyMessageString(val: string) {
             { new: true }
         );
 
-        if (!updatedStickyMessage)
-            throw new Error("Nothing fetched or updated");
+        if (!updatedStickyMessage) return "Nothing fetched or updated";
 
         stickyMessageString = updatedStickyMessage.stickyMessage || "";
         return stickyMessageString;
@@ -102,16 +101,32 @@ export async function addStickyMessage(channelId: string) {
     }
 }
 
-export async function deleteStickyMessage(channelId: string) {
+export async function deleteStickyChannel(channelId: string) {
     try {
         const deletedStickyChannel = await StickyChannel.findOneAndDelete({
             channelId,
         });
-        if (!deleteStickyMessage) {
+        if (!deleteStickyChannel) {
             return "sticky not found";
         }
         console.log(
-            `Sticky Message has been unset for channel ${deletedStickyChannel?.channelId}`
+            `Sticky Channel has been unset for channel ${deletedStickyChannel?.channelId}`
+        );
+        return "success";
+    } catch (error) {
+        console.log(error);
+        return "error";
+    }
+}
+
+export async function deleteAllStickyChannels() {
+    try {
+        const deletedStickyChannels = await StickyChannel.deleteMany();
+        if (!deletedStickyChannels) {
+            return "sticky not found";
+        }
+        console.log(
+            `All Sticky Channels has been unset: ${deletedStickyChannels}`
         );
         return "success";
     } catch (error) {

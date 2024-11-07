@@ -4,7 +4,7 @@ import {
     SlashCommandBuilder,
     TextChannel,
 } from "discord.js";
-import { deleteStickyMessage } from "../../modules/stickyMessageModule";
+import { deleteStickyChannel } from "../../modules/stickyMessageModule";
 
 export default {
     data: new SlashCommandBuilder()
@@ -37,21 +37,21 @@ export default {
         ) as TextChannel;
 
         try {
-            const success = await deleteStickyMessage(channel.id);
+            const success = await deleteStickyChannel(channel.id);
             if (success === "sticky not found") {
                 await interaction.editReply({
-                    content: `Sticky Message is not set on channel: ${channel}`,
+                    content: `Sticky Channel is not set on channel: ${channel}`,
                 });
                 return;
             }
             await interaction.editReply({
-                content: `Sticky Message for channel: ${channel} has been unset`,
+                content: `Sticky Channel for channel: ${channel} has been unset`,
             });
             return;
         } catch (error) {
             const errorMessage = (error as Error).message;
             await interaction.editReply({
-                content: `There was an error sending the announcement: ${errorMessage}`,
+                content: `There was an error deleting sticky channel: ${errorMessage}`,
             });
             return;
         }
