@@ -8,7 +8,7 @@ import { deleteStickyMessage } from "../../modules/stickyMessageModule";
 
 export default {
     data: new SlashCommandBuilder()
-        .setName("unset_sticky_message")
+        .setName("unset_sticky_channel")
         .setDescription("Unsets the sticky message to a target channel")
         .addChannelOption((option) =>
             option

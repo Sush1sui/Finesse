@@ -1,4 +1,4 @@
-import { GuildMember, Message, TextChannel } from "discord.js";
+import { EmbedBuilder, GuildMember, Message, TextChannel } from "discord.js";
 import {
     getAllStickyMessageChannelID,
     getStickyMessage_MID,
@@ -21,21 +21,26 @@ export default {
             if (STICKY_CHANNELS.includes(message.channel.id)) {
                 // Check if the channel is a TextChannel
                 if (message.channel instanceof TextChannel) {
-                    // Get the existing sticky message ID from the database
                     const existingStickyMessageId = await getStickyMessage_MID(
                         message.channel.id
                     );
 
                     // If there is an existing sticky message, delete it
                     if (existingStickyMessageId) {
-                        const existingMessage =
-                            await message.channel.messages.fetch(
-                                existingStickyMessageId
-                            );
-                        if (existingMessage) {
-                            await existingMessage.delete();
-                            console.log(
-                                `Deleted existing sticky message with ID: ${existingStickyMessageId}`
+                        try {
+                            const existingMessage =
+                                await message.channel.messages.fetch(
+                                    existingStickyMessageId
+                                );
+                            if (existingMessage) {
+                                await existingMessage.delete();
+                                console.log(
+                                    `Deleted existing sticky message with ID: ${existingStickyMessageId}`
+                                );
+                            }
+                        } catch (error) {
+                            console.warn(
+                                `Failed to fetch or delete message with ID ${existingStickyMessageId}. It may have already been deleted.`
                             );
                         }
                     }
@@ -44,29 +49,36 @@ export default {
                     const messages = await message.channel.messages.fetch({
                         limit: 2,
                     });
-                    const recentMessage = messages.last(); // The most recent message before the sticky message
+                    const recentMessage = messages.last();
 
-                    let recentMessageId: string | null = null; // Default to null if no recent message exists
+                    let recentMessageId: string | null = null;
                     if (recentMessage && recentMessage.id !== message.id) {
-                        recentMessageId = recentMessage.id; // Store the ID of the recent message if it's not the sticky message itself
+                        recentMessageId = recentMessage.id;
                     }
 
                     const customNotEmpty = stickyMessageString.length !== 0;
 
-                    // Send the new sticky message and store its ID in the database
-                    const newStickyMessage = await message.channel.send(
-                        `__**Stickied Message:**__\n\n${
+                    const embed = new EmbedBuilder()
+                        .setTitle("Stickied Message:")
+                        .setDescription(
                             customNotEmpty
                                 ? stickyMessageString
                                 : "Kindly avoid chatting or flood replies. Just use the **Thread** to avoid spamming or you will be **Timed out**"
-                        }`
-                    );
+                        )
+                        .setColor("White");
 
-                    // Update both recent and sticky message IDs
+                    // Send the new sticky message and store its ID in the database
+                    const newStickyMessage = await (
+                        message.channel as TextChannel
+                    ).send({
+                        content: "",
+                        embeds: [embed],
+                    });
+
                     await setStickyMessage_MID(
                         message.channel.id,
-                        recentMessageId, // Set recentPostMessageId
-                        newStickyMessage.id // Set stickyMessageId
+                        recentMessageId,
+                        newStickyMessage.id
                     );
 
                     console.log(
@@ -78,9 +90,9 @@ export default {
             }
         } catch (error) {
             console.error(
-                `Failed to send message: ${(error as Error).message}`
+                `Failed to send embed message: ${(error as Error).message}`,
+                error
             );
-            return;
         }
     },
 };
