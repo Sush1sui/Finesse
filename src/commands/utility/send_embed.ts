@@ -96,7 +96,7 @@ export default {
         .addAttachmentOption((option) =>
             option.setName("thumbnail").setDescription("thumbnail of the embed")
         )
-        .addIntegerOption((option) =>
+        .addStringOption((option) =>
             option
                 .setName("color")
                 .setDescription(
@@ -159,7 +159,7 @@ export default {
             const image = interaction.options.getAttachment("image") || null;
             const thumbnail =
                 interaction.options.getAttachment("thumbnail") || null;
-            const color = interaction.options.getInteger("color") || null;
+            const color = interaction.options.getString("color") || null;
 
             const embed = new EmbedBuilder();
 
@@ -196,8 +196,24 @@ ${paragraph_10 ? paragraph_10.replace(/\\n/g, "\n") ?? "" : ""}`;
             }
             embed.setDescription(embedDescription);
 
+            // Ensure the color is in the correct format (e.g., 0x3140A2 or 3140A2).
             if (color !== null) {
-                embed.setColor(color);
+                // Check if the color starts with '0x', if not, prepend it
+                const formattedColor = color.startsWith("0x")
+                    ? color
+                    : `0x${color}`;
+
+                // Verify that the formatted color is a valid hexadecimal string
+                if (/^0x[0-9A-Fa-f]{6}$/.test(formattedColor)) {
+                    // Convert the hexadecimal string to a number and set the color
+                    embed.setColor(Number(formattedColor));
+                } else {
+                    await interaction.editReply({
+                        content:
+                            "The color code provided is invalid. Please provide a valid hexadecimal color code.",
+                    });
+                    return;
+                }
             }
 
             if (footer !== null) {
