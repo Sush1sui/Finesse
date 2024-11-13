@@ -96,6 +96,13 @@ export default {
         .addAttachmentOption((option) =>
             option.setName("thumbnail").setDescription("thumbnail of the embed")
         )
+        .addIntegerOption((option) =>
+            option
+                .setName("color")
+                .setDescription(
+                    "color of the embed in hexadecimal (e.g., 0xFFFFFF for white)"
+                )
+        )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction: ChatInputCommandInteraction) {
@@ -152,6 +159,7 @@ export default {
             const image = interaction.options.getAttachment("image") || null;
             const thumbnail =
                 interaction.options.getAttachment("thumbnail") || null;
+            const color = interaction.options.getInteger("color") || null;
 
             const embed = new EmbedBuilder();
 
@@ -187,6 +195,10 @@ ${paragraph_10 ? paragraph_10.replace(/\\n/g, "\n") ?? "" : ""}`;
                 return;
             }
             embed.setDescription(embedDescription);
+
+            if (color !== null) {
+                embed.setColor(color);
+            }
 
             if (footer !== null) {
                 embed.setFooter({
