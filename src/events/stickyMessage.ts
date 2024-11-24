@@ -11,7 +11,7 @@ export default {
   once: false,
   async execute(message: Message): Promise<void> {
     try {
-      if (message.author.bot && message.channel.id !== "1292455344055910491")
+      if (message.author.bot && message.author.id !== "712011923176030229")
         return;
 
       if (!(message.member as GuildMember)) return;
