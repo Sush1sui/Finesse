@@ -23,11 +23,13 @@ export default {
         (!oldBoostStatus || oldBoostStatus < newBoostStatus)
       ) {
         const boostEmbed = new EmbedBuilder()
+          .setTitle("Thank you for the server boost!")
           .setColor(0xff73fa) // Customize the embed color
           .setDescription(
-            "We truly appreciate your support and all you do to help make this community even better! Sending you all our love and gratitude!\n\n" +
+            `${newMember} We truly appreciate your support and all you do to help make this community even better! Sending you all our love and gratitude!\n\n` +
               "> **Perks**\n" +
               "- Receive <@&1292420325002448930> role\n" +
+              "- Custom Onigiri Color Role <@%1303919788342382615>" +
               "- Nickname perms\n" +
               "- Soundboard\n" +
               "- Attach Files\n" +
