@@ -113,7 +113,7 @@ export async function checkSupporterStatus(guild: Guild) {
           await supporterChannel.send({
             content: ``,
             embeds: [embed],
-            allowedMentions: { parse: ["users", "roles"] },
+            allowedMentions: { parse: ["users"] },
           });
 
           // Update the color index in the database
