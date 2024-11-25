@@ -87,7 +87,7 @@ export async function checkSupporterStatus(guild: Guild) {
 
           embed
             .setTitle(
-              `${member} updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole.name} role!`
+              `${member.user.username} updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole.name} role!`
             )
             .setDescription(
               `**Note: Perks will be revoked if you remove the status.**
