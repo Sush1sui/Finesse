@@ -7,7 +7,10 @@ export default {
     try {
       if (message.author.bot) return;
 
-      if (message.channel.id === "1292412679402815662") {
+      if (
+        message.channel.id === "1292412679402815662" &&
+        message.attachments.size > 0
+      ) {
         await message.react("Check_White_FNS:1310274014102687854");
         await message.react("pixelheart:1310424521421099113");
       }
