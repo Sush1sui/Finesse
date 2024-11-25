@@ -73,6 +73,12 @@ export async function checkSupporterStatus(guild: Guild) {
       // Check if the user already has the role
       const hasSupporterRole = member.roles.cache.has(supporterRoleId);
 
+      if (includesSupporterLink && hasSupporterRole) {
+        // Skip if the user already has the role and the correct status
+        console.log(`${member.user.tag} already has the role and status.`);
+        continue;
+      }
+
       // Add or remove the role based on the link
       if (includesSupporterLink && !hasSupporterRole) {
         await member.roles.add(supporterRoleId);
