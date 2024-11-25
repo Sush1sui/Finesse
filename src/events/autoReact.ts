@@ -7,10 +7,15 @@ export default {
     try {
       if (message.author.bot) return;
 
+      if(message.channel.id === '1292412679402815662') {
+        await message.react('');
+      }
+
       if (message.content.toLowerCase().includes("hahaha")) {
         // React with custom animated emojis
         await message.react("😆");
       }
+
     } catch (error) {
       console.error(`Failed to add reaction: ${(error as Error).message}`);
     }
