@@ -24,9 +24,6 @@ export default {
       ) {
         const boostEmbed = new EmbedBuilder()
           .setColor(0xff73fa) // Customize the embed color
-          .setTitle(
-            `✨ **Thank you for the server boost ${newMember.displayName}!**`
-          )
           .setDescription(
             "We truly appreciate your support and all you do to help make this community even better! Sending you all our love and gratitude!\n\n" +
               "> **Perks**\n" +

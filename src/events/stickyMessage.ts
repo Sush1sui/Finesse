@@ -71,7 +71,10 @@ export default {
 
           // Send the new sticky message and store its ID in the database
           const newStickyMessage = await (message.channel as TextChannel).send({
-            content: "",
+            content:
+              message.channel.id === "1292455344055910491"
+                ? "<@&1292473360114122784>"
+                : "",
             embeds: [embed],
           });
 
