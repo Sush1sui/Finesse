@@ -93,7 +93,7 @@ export async function checkSupporterStatus(guild: Guild) {
 - Nickname Perms
 - Image & Embed Link Perms
 - 1.5x Level Boost
-- Color Name <@%1310451488975224973>
+- Color Name <#1310451488975224973>
             `
             )
             .setImage(
