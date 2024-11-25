@@ -86,22 +86,23 @@ export async function checkSupporterStatus(guild: Guild) {
           const embed = new EmbedBuilder();
 
           embed
-            .setTitle(
-              `${member.user.username} updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole.name} role!`
-            )
+            .setTitle(`Thank you for supporting **Finesse!**`)
             .setDescription(
-              `**Note: Perks will be revoked if you remove the status.**
+              `${member} updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole} role!\n
 > Perks:
 - Nickname Perms
 - Image & Embed Link Perms
 - 1.5x Level Boost
-- Color Name
+- Color Name <@%1310451488975224973>
             `
             )
             .setImage(
               "https://cdn.discordapp.com/attachments/1293239740404994109/1310449852349681704/image.png"
             )
-            .setColor(parseInt(currentColor.replace("#", "0x"), 16)); // Convert hex to number
+            .setColor(parseInt(currentColor.replace("#", "0x"), 16))
+            .setFooter({
+              text: "*Note: Perks will be revoked if you remove the status.*",
+            }); // Convert hex to number
 
           await supporterChannel.send({
             content: ``,
