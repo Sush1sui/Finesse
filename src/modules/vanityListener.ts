@@ -2,7 +2,7 @@ import { EmbedBuilder, Guild, TextChannel } from "discord.js";
 import ColorTransition from "../models/ColorTransitionSchema"; // Assuming the model is saved here
 
 const supporterRoleId = "1303924607555997776";
-const supporterLink = "https://discord.gg/finesseph";
+const supporterLink = "discord.gg/finesseph";
 const supporterChannelId = "1310442561126535179";
 
 // Define the color transition array
