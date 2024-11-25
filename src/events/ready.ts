@@ -25,15 +25,15 @@ export default {
     await checkSupporterStatus(guild);
 
     // Calculate the time difference until the next top of the hour (00 minutes)
-    const now = new Date();
-    const minutesUntilNextHour = 60 - now.getMinutes();
-    const msUntilNextHour =
-      (minutesUntilNextHour * 60 - now.getSeconds()) * 1000;
+    // const now = new Date();
+    // const minutesUntilNextHour = 60 - now.getMinutes();
+    // const msUntilNextHour =
+    //   (minutesUntilNextHour * 60 - now.getSeconds()) * 1000;
 
     // Schedule the task to run every hour
     setInterval(async () => {
       // Replace with your guild ID
       await checkSupporterStatus(guild);
-    }, msUntilNextHour); // 1 hour interval
+    }, 5 * 60 * 1000); // 1 hour interval
   },
 };
