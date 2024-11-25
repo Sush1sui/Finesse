@@ -86,9 +86,11 @@ export async function checkSupporterStatus(guild: Guild) {
           const embed = new EmbedBuilder();
 
           embed
+            .setTitle(
+              "**<@${member.id}> updated their status with our vanity link `discord.gg/finesseph` and earned the <@&${supporterRoleId}> role!**"
+            )
             .setDescription(
-              `**<@${member.id}> updated their status with our vanity link \`discord.gg/finesseph\` and earned the <@&${supporterRoleId}> role!**
-**Note: Perks will be revoked if you remove the status.**
+              `**Note: Perks will be revoked if you remove the status.**
 > Perks:
 - Nickname Perms
 - Image & Embed Link Perms
