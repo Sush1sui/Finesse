@@ -29,7 +29,7 @@ export default {
       // .setTimestamp();
 
       await welcomeChannel.send({
-        content: `**-ˏˋ⋆ ᴡ ᴇ ʟ ᴄ ᴏ ᴍ ᴇ ⋆ˊˎ- to Finesse ${member}**`,
+        content: ``,
         embeds: [welcomeEmbed],
         allowedMentions: { parse: ["users"] },
       });
