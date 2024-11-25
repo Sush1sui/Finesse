@@ -87,7 +87,7 @@ export async function checkSupporterStatus(guild: Guild) {
 
           embed
             .setDescription(
-              `
+              `**Note: Perks will be revoked if you remove the status.**
 > Perks:
 - Nickname Perms
 - Image & Embed Link Perms
@@ -95,9 +95,6 @@ export async function checkSupporterStatus(guild: Guild) {
 - Color Name
             `
             )
-            .setFooter({
-              text: "**Note: Perks will be revoked if you remove the status.**",
-            })
             .setImage(
               "https://cdn.discordapp.com/attachments/1293239740404994109/1310449852349681704/image.png"
             )
