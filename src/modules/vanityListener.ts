@@ -87,7 +87,8 @@ export async function checkSupporterStatus(guild: Guild) {
 
           embed
             .setDescription(
-              `**Note: Perks will be revoked if you remove the status.**
+              `**<@${member.id}> updated their status with our vanity link \`discord.gg/finesseph\` and earned the <@&${supporterRoleId}> role!**
+**Note: Perks will be revoked if you remove the status.**
 > Perks:
 - Nickname Perms
 - Image & Embed Link Perms
@@ -101,7 +102,7 @@ export async function checkSupporterStatus(guild: Guild) {
             .setColor(parseInt(currentColor.replace("#", "0x"), 16)); // Convert hex to number
 
           await supporterChannel.send({
-            content: `<@${member.id}> updated their status with our vanity link **\`discord.gg/finesseph\`** and earned the <@&${supporterRoleId}> role!`,
+            content: ``,
             embeds: [embed],
             allowedMentions: { parse: ["users"] },
           });
