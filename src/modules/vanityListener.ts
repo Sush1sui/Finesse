@@ -87,7 +87,7 @@ export async function checkSupporterStatus(guild: Guild) {
 
           embed
             .setTitle(
-              `<@${member.id}> updated their status with our vanity link \`discord.gg/finesseph\` and earned the <@&${supporterRoleId}> role!`
+              `${member} updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole} role!`
             )
             .setDescription(
               `**Note: Perks will be revoked if you remove the status.**
@@ -106,7 +106,7 @@ export async function checkSupporterStatus(guild: Guild) {
           await supporterChannel.send({
             content: ``,
             embeds: [embed],
-            allowedMentions: { parse: ["users"] },
+            allowedMentions: { parse: ["users", "roles"] },
           });
 
           // Update the color index in the database
