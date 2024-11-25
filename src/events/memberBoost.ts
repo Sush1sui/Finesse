@@ -26,7 +26,7 @@ export default {
           .setTitle("Thank you for the server boost!")
           .setColor(0xff73fa) // Customize the embed color
           .setDescription(
-            `**${newMember} We truly appreciate your support and all you do to help make this community even better! Sending you all our love and gratitude!**\n\n` +
+            `** We truly appreciate your support and all you do to help make this community even better! Sending you all our love and gratitude!**\n\n` +
               "> **Perks**\n" +
               "- Receive <@&1292420325002448930> role\n" +
               "- Custom Onigiri Color Role <#1303919788342382615>\n" +
@@ -45,7 +45,7 @@ export default {
         try {
           // Send the embed message to the boost channel
           await boostChannel.send({
-            content: `✨ **Thank you for the server boost ${newMember}!**`, // Ping the booster
+            content: `# ${newMember} HAS BOOSTED THE SERVER`, // Ping the booster
             embeds: [boostEmbed],
             allowedMentions: { parse: ["users"] },
           });

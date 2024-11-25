@@ -1,5 +1,5 @@
 import { EmbedBuilder, Guild, TextChannel } from "discord.js";
-import ColorTransition from "../models/ColorTransitionSchema"; // Assuming the model is saved here
+import ColorTransition from "../models/ColorTransitionSchema.model"; // Assuming the model is saved here
 
 const supporterRoleId = "1303924607555997776";
 const supporterLink = "discord.gg/finesseph";
