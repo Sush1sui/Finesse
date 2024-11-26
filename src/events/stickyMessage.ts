@@ -63,10 +63,10 @@ export default {
             .setDescription(
               message.channel.id === "1292455344055910491"
                 ? "If you guys want to reply to the confession, just **create a thread**."
-                : message.channel.id === "1292425562140315668"
-                ? "If you want to reply, just **create a thread**"
                 : message.channel.id === "1310583941287379116"
                 ? "Use `!rn` as prefix for your nickname request"
+                : message.channel.id === "1292425562140315668"
+                ? "Feel free to share your thoughts, comments, and suggestions, but please remember to ensure they align with the server rules."
                 : customNotEmpty
                 ? stickyMessageString
                 : "Kindly avoid chatting or flood replies. Just use the **Thread** to avoid spamming or you will be **Timed out**"
