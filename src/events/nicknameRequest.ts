@@ -46,7 +46,7 @@ export default {
 
         // Send the embed message to the approval channel
         const sentMessage = await (approvalChannel as TextChannel).send({
-          content: "<@&1303928426914381854> <@&1303928422824939662>", // Mention relevant roles
+          content: "<@&1310186525606154340>",
           embeds: [embed],
           allowedMentions: { parse: ["roles"] }, // Ensure only roles are mentioned
         });
@@ -64,7 +64,8 @@ export default {
         await setupNicknameRequestCollector(sentMessage, nicknameRequest);
 
         await (message.channel as TextChannel).send({
-          content: `Nickname request sent, please wait for the Mods to approve.`,
+          content: `Successfully created a nickname request from user: <@${message.author.id}>`,
+          allowedMentions: { parse: ["users"] },
         });
         console.log(
           `Successfully created a nickname request from user: ${message.author.username}`
