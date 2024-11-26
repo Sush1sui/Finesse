@@ -32,8 +32,7 @@ export default {
               "- Custom Onigiri Color Role <#1303919788342382615>\n" +
               "- Nickname perms\n" +
               "- Soundboard\n" +
-              "- Attach Files\n" +
-              "- Embed Links\n" +
+              "- Image and Embed Links perms\n" +
               "- External Emoji & Sticker\n" +
               "- +2.0x Level Boost"
           )
