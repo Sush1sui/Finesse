@@ -3,6 +3,7 @@ import deployCommands from "../deploy-commands";
 import { initializeVerificationCollector } from "../modules/verificationModule";
 import { initializeStickyMessages } from "../modules/stickyMessageModule";
 import { checkSupporterStatus } from "../modules/vanityListener";
+import { initializeNicknameRequests } from "../modules/NicknameRequestModule";
 
 // event handler for making bot online
 export default {
@@ -23,6 +24,7 @@ export default {
     await initializeVerificationCollector(client);
     await initializeStickyMessages();
     await checkSupporterStatus(guild);
+    await initializeNicknameRequests(client);
 
     // Calculate the time difference until the next top of the hour (00 minutes)
     // const now = new Date();

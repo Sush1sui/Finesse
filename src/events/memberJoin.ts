@@ -5,6 +5,8 @@ const welcomeChannelId = "1292411347220435006";
 export default {
   name: "guildMemberAdd",
   async execute(member: GuildMember): Promise<void> {
+    if (member.user.bot) return;
+
     try {
       const welcomeChannel = member.guild.channels.cache.get(
         welcomeChannelId

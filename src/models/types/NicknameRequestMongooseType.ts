@@ -2,8 +2,14 @@ import { Document, Model } from "mongoose";
 
 export interface NicknameRequestType {
   userId: string;
+  channelId: string;
   messageId: string;
   nickname: string;
+  reactions: [
+    {
+      emoji: string;
+    }
+  ];
 }
 
 export interface NicknameRequestDocument

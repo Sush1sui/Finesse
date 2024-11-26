@@ -17,6 +17,7 @@ export function startBot() {
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.MessageContent,
       GatewayIntentBits.GuildPresences,
+      GatewayIntentBits.GuildMessageReactions,
     ],
   }) as CustomClient;
 
