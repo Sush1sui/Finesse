@@ -65,6 +65,8 @@ export default {
                 ? "If you guys want to reply to the confession, just **create a thread**."
                 : message.channel.id === "1292425562140315668"
                 ? "If you want to reply, just **create a thread**"
+                : message.channel.id === "1310583941287379116"
+                ? "Use `!rn` as prefix for your nickname request"
                 : customNotEmpty
                 ? stickyMessageString
                 : "Kindly avoid chatting or flood replies. Just use the **Thread** to avoid spamming or you will be **Timed out**"
