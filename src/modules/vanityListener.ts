@@ -96,7 +96,6 @@ export async function checkSupporterStatus(guild: Guild) {
             .setDescription(
               `<@${member.id}> updated their status with our vanity link \`discord.gg/finesseph\` and earned the ${supporterRole} role!\n
 > Perks:
-- Nickname Perms
 - Image & Embed Link Perms
 - 1.5x Level Boost
 - Color Name <#1310451488975224973>
