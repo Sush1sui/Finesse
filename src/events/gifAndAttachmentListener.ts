@@ -1,4 +1,4 @@
-import { GuildMember, Message, TextChannel } from "discord.js";
+import { GuildMember, Message } from "discord.js";
 
 const staff_id = "1310186525606154340";
 const booster_id = "1292420325002448930";
@@ -29,13 +29,13 @@ export default {
       }
 
       // Check if the message channel is a GuildText-based channel (not a DM or other channel type)
-      if (
-        message.channel instanceof TextChannel &&
-        message.channel.parentId
-        // && CATEGORY_EXCEPTION.includes(message.channel.parentId)
-      ) {
-        return;
-      }
+      // if (
+      //   message.channel instanceof TextChannel
+      //   && message.channel.parentId
+      //   && CATEGORY_EXCEPTION.includes(message.channel.parentId)
+      // ) {
+      //   return;
+      // }
 
       const member = message.member as GuildMember;
       if (!member) return;
@@ -46,12 +46,11 @@ export default {
       if (hasAuthorizedRole) return;
 
       const hasAttachments = message.attachments.size > 0;
-      const hasGIFsOrLinks =
-        /https?:\/\/\S+\.(gif|jpg|jpeg|png|mp4|webm|mov|avi|mkv)|https?:\/\/tenor.com\/view\/\S+/i.test(
-          message.content
-        );
 
-      if (hasAttachments || hasGIFsOrLinks) {
+      const includesLinks =
+        message.content.includes("http") || message.content.includes("www.");
+
+      if (hasAttachments || includesLinks) {
         await message.delete();
         console.log(
           `Deleted a message from ${message.author.tag} in ${message.channel}`
