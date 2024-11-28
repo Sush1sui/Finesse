@@ -2,6 +2,8 @@ import { GuildMember, Message } from "discord.js";
 
 const staff_id = "1310186525606154340";
 const booster_id = "1292420325002448930";
+const pioneer_id = "1303916681692839956";
+const supporter_id = "1303924607555997776";
 
 const CHANNEL_EXCEPTION = [
   "1292412679402815662",
@@ -41,7 +43,10 @@ export default {
       if (!member) return;
 
       const hasAuthorizedRole =
-        member.roles.cache.has(staff_id) || member.roles.cache.has(booster_id);
+        member.roles.cache.has(staff_id) ||
+        member.roles.cache.has(booster_id) ||
+        member.roles.cache.has(pioneer_id) ||
+        member.roles.cache.has(supporter_id);
 
       if (hasAuthorizedRole) return;
 
