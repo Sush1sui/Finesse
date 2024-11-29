@@ -34,7 +34,7 @@ export default {
               "- Soundboard\n" +
               "- Image and Embed Links perms\n" +
               "- External Emoji & Sticker\n" +
-              "- +2.0x Level Boost"
+              "- 2.0x Level Boost"
           )
           .setImage(
             "https://cdn.discordapp.com/attachments/1303917209101406230/1310235247341867028/tyfdboost.gif?ex=67447b29&is=674329a9&hm=9a9a997a62dc63ea9db4071304ab3489d56149113fa7d5f0479d42aea1c3f1ed&"
