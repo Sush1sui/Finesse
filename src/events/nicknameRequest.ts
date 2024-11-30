@@ -57,16 +57,12 @@ export default {
         await nicknameRequest_CREATE(
           nicknameRequest,
           message.author.id,
+          message.id,
           sentMessage.channel.id,
           sentMessage.id
         );
 
         await setupNicknameRequestCollector(sentMessage, nicknameRequest);
-
-        await (message.channel as TextChannel).send({
-          content: `Successfully created a nickname request from user: <@${message.author.id}>`,
-          allowedMentions: { parse: ["users"] },
-        });
         console.log(
           `Successfully created a nickname request from user: ${message.author.username}`
         );

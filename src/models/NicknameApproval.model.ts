@@ -6,6 +6,7 @@ import {
 
 const nicknameRequestSchema = new mongoose.Schema({
   userId: { type: String, required: true },
+  userMessageId: { type: String, required: true },
   channelId: { type: String, required: true },
   messageId: { type: String, required: true, unique: true },
   nickname: { type: String, required: true },

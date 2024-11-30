@@ -26,12 +26,14 @@ export async function fetchAllNicknameRequests() {
 export async function nicknameRequest_CREATE(
   val: string,
   userId: string,
+  userMessageId: string,
   channelId: string,
   messageId: string
 ) {
   try {
     await NicknameRequest.create({
       userId,
+      userMessageId,
       messageId,
       channelId,
       nickname: val,
@@ -141,15 +143,28 @@ export async function setupNicknameRequestCollector(
             const userToChange = await reaction.message.guild.members.fetch(
               request.userId
             );
+            const userMessageChannel =
+              reaction.message.guild.channels.cache.get(
+                request.channelId
+              ) as TextChannel;
+            if (!userMessageChannel)
+              throw new Error("No nickname request channel found");
+
+            const userMessage = userMessageChannel.messages.cache.get(
+              request.userMessageId
+            );
+            if (!userMessage) throw new Error("No user message found to react");
+
             if (userToChange) {
               await userToChange.setNickname(nickname); // Assign the new nickname
               console.log(
                 `Changed nickname for ${userToChange.user.username} to ${nickname}`
               );
-              nicknameRequestChannel.send({
-                content: `Nickname request for <@${userToChange.user.id}> to **${nickname} is approved**`,
-                allowedMentions: { parse: ["users"] },
-              });
+              // nicknameRequestChannel.send({
+              //   content: `Nickname request for <@${userToChange.user.id}> to **${nickname} is approved**`,
+              //   allowedMentions: { parse: ["users"] },
+              // });
+              await userMessage?.react(approveEmoji);
               await nicknameRequest_REMOVE(message.id);
               collector.stop("approved");
             }
@@ -162,15 +177,27 @@ export async function setupNicknameRequestCollector(
             const userToChange = await reaction.message.guild.members.fetch(
               request.userId
             );
+            const userMessageChannel =
+              reaction.message.guild.channels.cache.get(
+                request.channelId
+              ) as TextChannel;
+            if (!userMessageChannel)
+              throw new Error("No nickname request channel found");
+
+            const userMessage = userMessageChannel.messages.cache.get(
+              request.userMessageId
+            );
+            if (!userMessage) throw new Error("No user message found to react");
             if (userToChange) {
               await nicknameRequest_REMOVE(message.id);
               console.log(
                 `Nickname request for ${userToChange.user.username} to ${nickname} is denied`
               );
-              nicknameRequestChannel.send({
-                content: `Nickname request for <@${userToChange.user.id}> to **${nickname} is denied**`,
-                allowedMentions: { parse: ["users"] },
-              });
+              // nicknameRequestChannel.send({
+              //   content: `Nickname request for <@${userToChange.user.id}> to **${nickname} is denied**`,
+              //   allowedMentions: { parse: ["users"] },
+              // });
+              await userMessage?.react(denyEmoji);
               collector.stop("denied");
             }
           }
