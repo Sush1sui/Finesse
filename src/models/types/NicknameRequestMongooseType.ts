@@ -3,6 +3,7 @@ import { Document, Model } from "mongoose";
 export interface NicknameRequestType {
   userId: string;
   userMessageId: string;
+  userChannelId: string;
   channelId: string;
   messageId: string;
   nickname: string;

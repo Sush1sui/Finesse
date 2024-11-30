@@ -27,6 +27,7 @@ export async function nicknameRequest_CREATE(
   val: string,
   userId: string,
   userMessageId: string,
+  userChannelId: string,
   channelId: string,
   messageId: string
 ) {
@@ -34,6 +35,7 @@ export async function nicknameRequest_CREATE(
     await NicknameRequest.create({
       userId,
       userMessageId,
+      userChannelId,
       messageId,
       channelId,
       nickname: val,
@@ -145,7 +147,7 @@ export async function setupNicknameRequestCollector(
             );
             const userMessageChannel =
               reaction.message.guild.channels.cache.get(
-                request.channelId
+                request.userChannelId
               ) as TextChannel;
             if (!userMessageChannel)
               throw new Error("No nickname request channel found");
@@ -179,7 +181,7 @@ export async function setupNicknameRequestCollector(
             );
             const userMessageChannel =
               reaction.message.guild.channels.cache.get(
-                request.channelId
+                request.userChannelId
               ) as TextChannel;
             if (!userMessageChannel)
               throw new Error("No nickname request channel found");

@@ -58,6 +58,7 @@ export default {
           nicknameRequest,
           message.author.id,
           message.id,
+          message.channel.id,
           sentMessage.channel.id,
           sentMessage.id
         );
