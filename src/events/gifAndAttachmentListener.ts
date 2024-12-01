@@ -53,7 +53,9 @@ export default {
       const hasAttachments = message.attachments.size > 0;
 
       const includesLinks =
-        message.content.includes("http") || message.content.includes("www.");
+        message.content.includes("http") ||
+        message.content.includes("www.") ||
+        message.content.includes("discord.gg/");
 
       if (hasAttachments || includesLinks) {
         await message.delete();
