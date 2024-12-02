@@ -1,5 +1,6 @@
 import { EmbedBuilder, Guild, TextChannel } from "discord.js";
 import ColorTransition from "../models/ColorTransitionSchema.model"; // Assuming the model is saved here
+import ExemptedUsers from "../models/ExemptedUsers.model";
 
 const supporterRoleId = "1303924607555997776";
 const supporterLink = "discord.gg/finesseph";
@@ -38,6 +39,11 @@ export async function checkSupporterStatus(guild: Guild) {
 
     // Fetch all members in the guild
     const members = await guild.members.fetch();
+    const exemptedUsers = await getAllExemptedUsersVanity();
+    let exemptedUserIds: string[] = [];
+    if (exemptedUsers) {
+      exemptedUserIds = exemptedUsers.map((user) => user.userId);
+    }
 
     // Get the role object from the role ID
     const supporterRole = guild.roles.cache.get(supporterRoleId);
@@ -60,7 +66,7 @@ export async function checkSupporterStatus(guild: Guild) {
 
     for (const member of members.values()) {
       // Skip bots
-      if (member.user.bot) continue;
+      if (member.user.bot || exemptedUserIds.includes(member.id)) continue;
 
       // Get the custom status from the presence activities
       const customStatus = member.presence?.activities.find(
@@ -130,5 +136,42 @@ export async function checkSupporterStatus(guild: Guild) {
     console.error(`Error checking supporter statuses: ${error}`);
   } finally {
     console.log("scanning for vanity links done");
+  }
+}
+
+export async function exemptUserVanity(userId: string) {
+  try {
+    const expirationDate = new Date();
+    expirationDate.setSeconds(expirationDate.getSeconds() + 3 * 24 * 60 * 60); // Add 3 days
+    const exemptedUser = await ExemptedUsers.create({
+      userId,
+      expiration: expirationDate,
+    });
+
+    return exemptedUser;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function removeUserVanity(userId: string) {
+  try {
+    const removedUser = await ExemptedUsers.findOneAndDelete({
+      userId,
+    });
+    return removedUser;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getAllExemptedUsersVanity() {
+  try {
+    return await ExemptedUsers.find();
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }
