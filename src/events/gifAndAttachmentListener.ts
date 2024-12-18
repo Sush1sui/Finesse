@@ -1,5 +1,7 @@
 import { GuildMember, Message } from "discord.js";
 
+const exe_id = "1292417488323215441";
+const rssc_id = "1303932364132454421";
 const staff_id = "1310186525606154340";
 const booster_id = "1292420325002448930";
 const pioneer_id = "1303916681692839956";
@@ -46,6 +48,8 @@ export default {
         member.roles.cache.has(staff_id) ||
         member.roles.cache.has(booster_id) ||
         member.roles.cache.has(pioneer_id) ||
+        member.roles.cache.has(rssc_id) ||
+        member.roles.cache.has(exe_id) ||
         member.roles.cache.has(supporter_id);
 
       if (hasAuthorizedRole) return;
