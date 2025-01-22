@@ -34,7 +34,7 @@ export default {
       let remainingTime = timer / 1000;
 
       const replyMessage = await message.reply(
-        `**You can kak/trash claim now <@${userId}> in ${remainingTime} seconds!**`
+        `**<@${userId}> can kak/trash claim in ${remainingTime} seconds!**`
       );
 
       const intervalId = setInterval(async () => {
@@ -42,7 +42,7 @@ export default {
         if (remainingTime >= 0) {
           try {
             await replyMessage.edit(
-              `**You can kak/trash claim now <@${userId}> in ${remainingTime} seconds!**`
+              `**<@${userId}> can kak/trash claim in ${remainingTime} seconds!**`
             );
           } catch (error) {
             console.log("Error updating countdown message: ", error);
