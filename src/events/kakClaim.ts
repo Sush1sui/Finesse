@@ -48,7 +48,7 @@ export default {
             console.log("Error updating countdown message: ", error);
           }
         }
-      });
+      }, 1000);
 
       const timeoutId = setTimeout(async () => {
         clearInterval(intervalId);
