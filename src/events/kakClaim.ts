@@ -1,9 +1,9 @@
 import { Message } from "discord.js";
 
 // timer = 15s
-let timer = 15000;
+export let timer = 15000;
 
-const changeTimer = (val: number) => {
+export const changeTimer = (val: number) => {
   timer = val * 1000;
 };
 
