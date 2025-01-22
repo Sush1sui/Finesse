@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 
-// timer = 45s
-let timer = 45000;
+// timer = 15s
+let timer = 15000;
 
 const changeTimer = (val: number) => {
   timer = val * 1000;
@@ -30,7 +30,7 @@ export default {
         intervalMap.delete(userId);
       }
 
-      // convert to 45s from 45000ms
+      // convert to 15s from 15000ms
       let remainingTime = timer / 1000;
 
       const replyMessage = await message.reply(
