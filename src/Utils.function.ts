@@ -38,21 +38,23 @@ export async function sendWelcomeAfterVerification(
 
 export function verifyGitHubSignature(
   req: Request,
-  _res: Response,
+  res: Response,
   buf: Buffer,
   GITHUB_SECRET: string
 ) {
   const signature = req.headers["x-hub-signature-256"];
+  console.log("Received Signature:", signature); // Log the received signature
 
   if (!signature) {
-    throw new Error("Missing GitHub signature!"); // Throwing an error instead of sending a response
+    throw new Error("Missing GitHub signature!");
   }
 
   const hmac = crypto.createHmac("sha256", GITHUB_SECRET);
   hmac.update(buf);
   const expectedSignature = `sha256=${hmac.digest("hex")}`;
+  console.log("Expected Signature:", expectedSignature); // Log the expected signature
 
   if (signature !== expectedSignature) {
-    throw new Error("Invalid GitHub signature!"); // Throwing an error instead of sending a response
+    throw new Error("Invalid GitHub signature!");
   }
 }
