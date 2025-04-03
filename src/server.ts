@@ -72,11 +72,3 @@ export function startServer() {
     process.exit(0);
   });
 }
-function verifyGitHubSignature(
-  req: IncomingMessage,
-  res: ServerResponse<IncomingMessage>,
-  buf: Buffer,
-  encoding: string
-): void {
-  throw new Error("Function not implemented.");
-}
