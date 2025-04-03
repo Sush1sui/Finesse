@@ -54,8 +54,11 @@ export function startServer() {
         EXE_DEV_CHAT!
       ) as TextChannel;
       if (discordChannel) {
+        const devRole = discordChannel.guild.roles.cache.get(
+          "1292418236108902470"
+        );
         await discordChannel.send({
-          content: `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:`,
+          content: `📌 **Hello ${devRole}! There is a new commit in Finesse-Tickets Repo**:`,
           allowedMentions: { parse: ["roles"] },
           embeds: [
             new EmbedBuilder()
