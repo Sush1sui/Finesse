@@ -42,7 +42,7 @@ export function startServer() {
   app.post("/github-webhook", async (req: Request, res: Response) => {
     const payload = req.body;
 
-    if (payload.ref === "refs/heads/main") {
+    if (payload.ref === "refs/heads/master") {
       const commit = payload.head_commit;
       const commitMessage = commit.message;
       const commitAuthor = commit.author.name;
