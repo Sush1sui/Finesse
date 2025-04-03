@@ -4,7 +4,6 @@ import { initializeVerificationCollector } from "../modules/verificationModule";
 import { initializeStickyMessages } from "../modules/stickyMessageModule";
 import { checkSupporterStatus } from "../modules/vanityListener";
 import { initializeNicknameRequests } from "../modules/NicknameRequestModule";
-import { startWebhookListener } from "../githubWebhookListener";
 
 // event handler for making bot online
 export default {
@@ -26,7 +25,6 @@ export default {
     await initializeStickyMessages();
     await checkSupporterStatus(guild);
     await initializeNicknameRequests(client);
-    startWebhookListener(client);
 
     // Calculate the time difference until the next top of the hour (00 minutes)
     // const now = new Date();
