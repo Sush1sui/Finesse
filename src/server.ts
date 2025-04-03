@@ -45,7 +45,7 @@ export function startServer() {
     if (payload.ref === "refs/heads/master") {
       const commit = payload.head_commit;
       const commitMessage = commit.message;
-      const commitAuthor = commit.author.name;
+      const commitAuthor = commit.author.username;
       const commitUrl = commit.url;
 
       const openGraphImage = await getOpenGraphImage(commitUrl);
@@ -54,10 +54,6 @@ export function startServer() {
         EXE_DEV_CHAT!
       ) as TextChannel;
       if (discordChannel) {
-        const devRole = discordChannel.guild.roles.cache.get(
-          "1292418236108902470"
-        );
-
         const embed = new EmbedBuilder()
           .setColor("White")
           .setTitle("New Commit in Finesse-Tickets")
@@ -74,8 +70,7 @@ export function startServer() {
           .setImage(openGraphImage || "");
 
         await discordChannel.send({
-          content: `📌 **Hello ${devRole}! There is a new commit in Finesse-Tickets Repo**:`,
-          allowedMentions: { parse: ["roles"] },
+          content: `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:`,
         });
         await discordChannel.send({
           embeds: [embed],
