@@ -57,25 +57,28 @@ export function startServer() {
         const devRole = discordChannel.guild.roles.cache.get(
           "1292418236108902470"
         );
+
+        const embed = new EmbedBuilder()
+          .setColor("White")
+          .setTitle("New Commit in Finesse-Tickets")
+          .addFields(
+            { name: "Author", value: commitAuthor, inline: true },
+            { name: "Commit Message", value: commitMessage, inline: false },
+            {
+              name: "Commit URL",
+              value: `[View Commit](${commitUrl})`,
+              inline: false,
+            }
+          )
+          .setTimestamp()
+          .setImage(openGraphImage || "");
+
         await discordChannel.send({
           content: `📌 **Hello ${devRole}! There is a new commit in Finesse-Tickets Repo**:`,
           allowedMentions: { parse: ["roles"] },
-          embeds: [
-            new EmbedBuilder()
-              .setColor("White")
-              .setTitle("New Commit in Finesse-Tickets")
-              .addFields(
-                { name: "Author", value: commitAuthor, inline: true },
-                { name: "Commit Message", value: commitMessage, inline: false },
-                {
-                  name: "Commit URL",
-                  value: `[View Commit](${commitUrl})`,
-                  inline: false,
-                }
-              )
-              .setTimestamp()
-              .setImage(openGraphImage || ""),
-          ],
+        });
+        await discordChannel.send({
+          embeds: [embed],
         });
       } else {
         console.log("Discord channel not found");
