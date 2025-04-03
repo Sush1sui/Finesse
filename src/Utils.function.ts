@@ -38,7 +38,7 @@ export async function sendWelcomeAfterVerification(
 
 export function verifyGitHubSignature(
   req: Request,
-  res: Response,
+  _res: Response,
   buf: Buffer,
   GITHUB_SECRET: string
 ) {
