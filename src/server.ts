@@ -3,6 +3,7 @@ import "dotenv/config";
 import fetch from "node-fetch";
 import { client } from "./app";
 import { TextChannel } from "discord.js";
+import { verifyGitHubSignature } from "./Utils.function";
 
 const app = express();
 const GITHUB_SECRET = process.env.GITHUB_SECRET;
