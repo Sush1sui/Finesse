@@ -9,34 +9,34 @@ const BOT = process.env.BOT;
 let timeoutId: NodeJS.Timeout;
 
 function pingBot() {
-    if (!BOT) return; // Prevent overlap if already pinging
+  if (!BOT) return; // Prevent overlap if already pinging
 
-    const attemptPing = () => {
-        fetch(BOT)
-            .then((res) => res.text())
-            .then((text) => {
-                console.log("Ping successful:", text);
-            })
-            .catch((err) => {
-                clearTimeout(timeoutId);
-                console.error("Ping failed, retrying:", err);
-                timeoutId = setTimeout(attemptPing, 5000); // Retry after 5 seconds
-            });
-    };
+  const attemptPing = () => {
+    fetch(BOT)
+      .then((res) => res.text())
+      .then((text) => {
+        console.log("Ping successful:", text);
+      })
+      .catch((err) => {
+        clearTimeout(timeoutId);
+        console.error("Ping failed, retrying:", err);
+        timeoutId = setTimeout(attemptPing, 5000); // Retry after 5 seconds
+      });
+  };
 
-    attemptPing(); // Start the initial ping
+  attemptPing(); // Start the initial ping
 }
 
 export function startServer() {
-    app.get("/", (_req, res) => res.send("Bot is running"));
+  app.get("/", (_req, res) => res.send("Bot is running"));
 
-    setInterval(pingBot, 600000); // Ping every 10 minutes
+  setInterval(pingBot, 600000); // Ping every 10 minutes
 
-    app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+  app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
-    // Graceful shutdown
-    process.on("SIGINT", () => {
-        console.log("Server shutting down gracefully");
-        process.exit(0);
-    });
+  // Graceful shutdown
+  process.on("SIGINT", () => {
+    console.log("Server shutting down gracefully");
+    process.exit(0);
+  });
 }
