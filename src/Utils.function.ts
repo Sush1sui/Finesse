@@ -44,14 +44,15 @@ export function verifyGitHubSignature(
 ) {
   const signature = req.headers["x-hub-signature-256"];
 
-  if (!signature) return res.status(401).send("Missing GitHub signature!");
+  if (!signature) {
+    throw new Error("Missing GitHub signature!"); // Throwing an error instead of sending a response
+  }
 
   const hmac = crypto.createHmac("sha256", GITHUB_SECRET);
   hmac.update(buf);
   const expectedSignature = `sha256=${hmac.digest("hex")}`;
 
   if (signature !== expectedSignature) {
-    return res.status(403).send("Invalid GitHub signature!");
+    throw new Error("Invalid GitHub signature!"); // Throwing an error instead of sending a response
   }
-  return;
 }
