@@ -55,7 +55,8 @@ export function startServer() {
       ) as TextChannel;
       if (discordChannel) {
         await discordChannel.send({
-          content: `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:`, // Ping message
+          content: `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:`,
+          allowedMentions: { parse: ["roles"] },
           embeds: [
             new EmbedBuilder()
               .setColor("White")
