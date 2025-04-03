@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import "dotenv/config";
 import fetch from "node-fetch";
 import { client } from "./app";
-import { TextChannel } from "discord.js";
+import { EmbedBuilder, TextChannel } from "discord.js";
 import { verifyGitHubSignature } from "./Utils.function";
 
 const app = express();
@@ -52,9 +52,24 @@ export function startServer() {
         EXE_DEV_CHAT!
       ) as TextChannel;
       if (discordChannel) {
-        await discordChannel.send(
-          `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:\n👤 **Author: ${commitAuthor}**\n Commit Message:> ${commitMessage}\n🔗 [View Commit](${commitUrl})`
-        );
+        await discordChannel.send({
+          content: `📌 **Hello <@&1292418236108902470>! There is a new commit in Finesse-Tickets Repo**:`, // Ping message
+          embeds: [
+            new EmbedBuilder()
+              .setColor("White")
+              .setTitle("New Commit in Finesse-Tickets")
+              .addFields(
+                { name: "Author", value: commitAuthor, inline: true },
+                { name: "Commit Message", value: commitMessage, inline: false },
+                {
+                  name: "Commit URL",
+                  value: `[View Commit](${commitUrl})`,
+                  inline: false,
+                }
+              )
+              .setTimestamp(),
+          ],
+        });
       } else {
         console.log("Discord channel not found");
       }
