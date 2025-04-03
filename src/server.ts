@@ -3,7 +3,7 @@ import "dotenv/config";
 import fetch from "node-fetch";
 import { client } from "./app";
 import { EmbedBuilder, TextChannel } from "discord.js";
-import { verifyGitHubSignature } from "./Utils.function";
+import { getOpenGraphImage, verifyGitHubSignature } from "./Utils.function";
 
 const app = express();
 const GITHUB_SECRET = process.env.GITHUB_SECRET;
@@ -48,6 +48,8 @@ export function startServer() {
       const commitAuthor = commit.author.name;
       const commitUrl = commit.url;
 
+      const openGraphImage = await getOpenGraphImage(commitUrl);
+
       const discordChannel = client.channels.cache.get(
         EXE_DEV_CHAT!
       ) as TextChannel;
@@ -67,7 +69,8 @@ export function startServer() {
                   inline: false,
                 }
               )
-              .setTimestamp(),
+              .setTimestamp()
+              .setImage(openGraphImage || ""),
           ],
         });
       } else {

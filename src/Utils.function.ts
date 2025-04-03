@@ -6,6 +6,8 @@ import {
 } from "discord.js";
 import { Request, Response } from "express";
 import crypto from "crypto";
+import fetch from "node-fetch";
+import { JSDOM } from "jsdom";
 
 export async function sendWelcomeAfterVerification(
   buttonInteraction: ButtonInteraction<"cached">,
@@ -58,3 +60,20 @@ export const verifyGitHubSignature = (
     throw new Error("Signature mismatch");
   }
 };
+
+export async function getOpenGraphImage(url: string) {
+  try {
+    const response = await fetch(url);
+    const body = await response.text();
+
+    const dom = new JSDOM(body);
+    const ogImage = dom.window.document.querySelector(
+      'meta[property="og:image"]'
+    );
+
+    return ogImage ? ogImage.getAttribute("content") : null;
+  } catch (error) {
+    console.error("Error fetching Open Graph image:", error);
+    return null;
+  }
+}
