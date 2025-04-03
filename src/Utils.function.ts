@@ -36,25 +36,22 @@ export async function sendWelcomeAfterVerification(
   }
 }
 
-export function verifyGitHubSignature(
-  req: Request,
-  _res: Response,
-  buf: Buffer,
-  GITHUB_SECRET: string
-) {
-  const signature = req.headers["x-hub-signature-256"];
-  console.log("Received Signature:", signature); // Log the received signature
+const verifyGitHubSignature = (req: Request, res: Response, buf: Buffer) => {
+  const signature = req.headers["x-hub-signature-256"] as string;
+  const payload = buf.toString();
 
   if (!signature) {
-    throw new Error("Missing GitHub signature!");
+    console.log("Signature missing");
+    return res.status(400).send("Signature missing");
   }
 
-  const hmac = crypto.createHmac("sha256", GITHUB_SECRET);
-  hmac.update(buf);
+  const hmac = crypto.createHmac("sha256", process.env.GITHUB_SECRET!);
+  hmac.update(payload);
   const expectedSignature = `sha256=${hmac.digest("hex")}`;
-  console.log("Expected Signature:", expectedSignature); // Log the expected signature
 
   if (signature !== expectedSignature) {
-    throw new Error("Invalid GitHub signature!");
+    console.log("Signature mismatch");
+    return res.status(400).send("Signature mismatch");
   }
-}
+  return;
+};

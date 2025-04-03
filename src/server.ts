@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import "dotenv/config";
 import fetch from "node-fetch";
-import { verifyGitHubSignature } from "./Utils.function";
 import { client } from "./app";
 import { TextChannel } from "discord.js";
 
@@ -72,4 +71,12 @@ export function startServer() {
     console.log("Server shutting down gracefully");
     process.exit(0);
   });
+}
+function verifyGitHubSignature(
+  req: IncomingMessage,
+  res: ServerResponse<IncomingMessage>,
+  buf: Buffer,
+  encoding: string
+): void {
+  throw new Error("Function not implemented.");
 }
